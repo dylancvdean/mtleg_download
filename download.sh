@@ -26,7 +26,7 @@ while true; do
     break
   fi
   
-  wget -q -O "$i.mp4" "$file_url"
+  wget -q -O "$i.ts" "$file_url"
   
   i=$((i+1))
 done
