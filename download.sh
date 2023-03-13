@@ -1,24 +1,18 @@
 #!/bin/bash
 
 echo "Enter hearing video link"
-
 read hearing
-
 wget --user-agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:118.0) Gecko/20100101 Firefox/118.0" -O html $hearing
-
 grep m3u8 html > html2
 
 # Read the file and search for the "Url" property
 url=$(grep -oP '(?<="Url":")[^"]*' html2)
 
 # Print the URL
-echo $url
-> html
+echo $url > html
 rm html2
 grep -oP '.*(?=\/playlist\.m3u8)' html > html.tmp && mv html.tmp html
 mv html url
-
-#!/bin/bash
 
 url=$(cat url)
 
@@ -36,7 +30,6 @@ while true; do
   
   i=$((i+1))
 done
-
 
 ffmpeg -i "concat:$(printf '%s|' *.ts)" -c copy output.mp4
 
