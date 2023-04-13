@@ -30,7 +30,8 @@ while true; do
   
   i=$((i+1))
 done
-for file in *.ts; do [[ ${file%.*} =~ ^.{1,4}$ ]] && mv "$file" "$(printf "%05d%s" "${file%.*}" "${file##*.}")"; done
+for file in *.ts; do [[ ${file%.*} =~ ^.{1,4}$ ]] && mv "$file" "$(printf "%s.%s" "$(printf "%05d" "${file%.*}")" "${file##*.}")"; done
+
 
 ffmpeg -i "concat:$(printf '%s|' *.ts)" -c copy output.mp4
 
